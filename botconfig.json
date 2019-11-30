@@ -1,4 +1,4 @@
 {
-	"token": process.env.secrettoken,
+	"token": "process.env.secrettoken",
 	"prefix": "."
 }
