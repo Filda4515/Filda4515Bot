@@ -1,4 +1,4 @@
 {
-	"token": "process.env.secrettoken",
+	"token": JSON.parse(ENV['secrettoken']),
 	"prefix": "."
 }
