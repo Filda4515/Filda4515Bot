@@ -20,6 +20,7 @@ module.exports.run = async (bot, message, args) => {
 			return console.log("[LOGS] Couldn't find Emotes!");
 		}
 		
+		var emotes = ""
 		giffile.forEach((f, i) => {
 			let emotes = emotes.concat(f.split(".")[0]);
 		});
