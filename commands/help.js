@@ -4,7 +4,6 @@ const Discord = require("discord.js");
 module.exports.run = async (bot, message, args) => {
 	
 	const fs = require("fs");
-	
 	const prefix = botconfig.prefix
 	
 	message.delete()
@@ -12,7 +11,6 @@ module.exports.run = async (bot, message, args) => {
 	.setAuthor("Prikaz Help", message.guild.iconURL)
 	.setColor("#003EFF")
 	.setDescription(`${message.author.username} zkontroluj svoje dms!`)
-	
 	
 	fs.readdir("./images/gif", (err, files) => {
 		if(err) console.log(err);
@@ -23,7 +21,7 @@ module.exports.run = async (bot, message, args) => {
 		}
 		
 		giffile.forEach((f, i) => {
-			console.log(f.split(".").pop());
+			console.log(f.split("."));
 		});
 	});
 	
