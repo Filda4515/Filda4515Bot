@@ -21,7 +21,7 @@ module.exports.run = async (bot, message, args) => {
 		}
 		
 		giffile.forEach((f, i) => {
-			console.log(f.split(".")[0]);
+			let emotes = emotes.concat(f.split(".")[0]});
 		});
 	});
 	
@@ -32,7 +32,7 @@ module.exports.run = async (bot, message, args) => {
 	.setTimestamp()
 	.setDescription(`Tohle jsou dostupné příkazy a animované emoty\nPrefix příkazů je ${prefix}\nAnimované emoty zobrazíš přes příkaz ${prefix}e <emote>\n\n**NÁPADY PIŠTE PŘES .IDEA <slohovka>**`)	
 	.addField("Prikazy:", "**gachi, Gachi, gachiBASS** - Náhodný gachiBASS\n**hello, hi** - Pozdrav, test command proč tu pořád do píči je? :) Jsem líný ho smazat\n**sračka, sracka** - Prostě sračka :)")
-	.addField("Animované emoty:", "**gachiBASS**\n**gachiHYPER**\n**peepoSprint**\n**TeaTime**\n**BBoomer**")
+	.addField("Animované emoty:", `**${emotes}**`)
 	.setFooter("Filda4515 Bot 2k19", bot.user.displayAvatarURL)
 	message.channel.send(embed).then(m => m.delete(10000));
 	message.author.send(Sembed)
