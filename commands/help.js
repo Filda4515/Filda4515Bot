@@ -21,7 +21,7 @@ module.exports.run = async (bot, message, args) => {
 		}
 		
 		giffile.forEach((f, i) => {
-			console.log(f.split("."));
+			console.log(f.split(".")[0]);
 		});
 	});
 	
