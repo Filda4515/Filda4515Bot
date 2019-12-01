@@ -21,7 +21,7 @@ module.exports.run = async (bot, message, args) => {
 		}
 		
 		giffile.forEach((f, i) => {
-			let emotes = emotes.concat(f.split(".")[0]});
+			let emotes = emotes.concat(f.split(".")[0]);
 		});
 	});
 	
