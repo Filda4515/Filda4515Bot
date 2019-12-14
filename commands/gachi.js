@@ -1,4 +1,3 @@
-const Discord = require("discord.js");
 const gachibass = [
 "https://www.youtube.com/watch?v=NdqbI0_0GsM",
 "https://www.youtube.com/watch?v=UsGg0wFSkOY",

@@ -6,7 +6,10 @@
   "dependencies": {
     "discord.js": "^11.5.1",
     "fs": "0.0.1-security",
-    "quick.db": "^7.0.0-b22"
+    "node-opus": "^0.3.3",
+    "opusscript": "0.0.7",
+    "quick.db": "^7.0.0-b22",
+    "ytdl-core": "^1.0.3"
   },
   "devDependencies": {},
   "scripts": {
