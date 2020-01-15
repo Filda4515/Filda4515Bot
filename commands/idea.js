@@ -43,8 +43,24 @@ module.exports.run = async (bot, message, args) => {
 			mention.sendMessage (Aembed);
 			let Bembed = new Discord.RichEmbed()
 				.setColor("#003EFF")
-				.setAuthor(message.content.slice(prefix.length+4+1+args[0].length+1+args[1].length+1))
-				.setDescription("Informace o nápadu byly poslány")
+				.setAuthor("Informace o nápadu byly poslány")
+				.setDescription(message.content.slice(prefix.length+4+1+args[0].length+1+args[1].length+1))
+				.setFooter("Filda4515 Bot", bot.user.displayAvatarURL)
+			return channel.send(Bembed);
+		} else if(args[0] === "reason") {
+			let Aembed = new Discord.RichEmbed()
+				.setColor("#003EFF")
+				.setAuthor("Filda4515 Bot IDEA", message.guild.iconURL)
+				.setThumbnail(bot.user.displayAvatarURL)
+				.setTimestamp()
+				.setDescription("Tvůj nápad byl zamítnut:")
+				.addField("Důvod zamítnutí:", message.content.slice(prefix.length+4+1+args[0].length+1+args[1].length+1))
+				.setFooter("Filda4515 Bot", bot.user.displayAvatarURL)
+			mention.sendMessage (Aembed);
+			let Bembed = new Discord.RichEmbed()
+				.setColor("#003EFF")
+				.setAuthor("Důvod byl poslán")
+				.setDescription(message.content.slice(prefix.length+4+1+args[0].length+1+args[1].length+1))
 				.setFooter("Filda4515 Bot", bot.user.displayAvatarURL)
 			return channel.send(Bembed);
 		} else if(args[0] === "deny") {
@@ -81,7 +97,7 @@ module.exports.run = async (bot, message, args) => {
 		.setColor("#003EFF")
 		.setAuthor(message.author.tag, message.author.displayAvatarURL)
 		.setDescription(message.content.slice(prefix.length+5))
-		.setFooter("Návrh pro bota || .idea accept @user <napad> / .idea info @user <info> / .idea deny @user <napad>")
+		.setFooter("Návrh pro bota || .idea accept @user <napad> / info @user <info> / reason @user <reason> / deny @user <napad>")
 	return channel.send(Embed);
 }
 

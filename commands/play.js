@@ -1,7 +1,6 @@
 const ytdl = require("ytdl-core");
 
 module.exports.run = async (bot, message, args) => {
-	if (message.author.id != '356168492942229506') return;
 	if (!message.member.voiceChannel) return message.channel.send("Připoj se do voice channelu.");
 	if (message.guild.me.voiceChannel) return message.channel.send("Bot je už připojený.");
 	if (!args[0]) return message.channel.send("Nevložili jste URL.");
