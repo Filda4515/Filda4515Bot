@@ -18,7 +18,9 @@ const gachibass = [
 "https://www.youtube.com/watch?v=aC48Cm1eWLY",
 "https://www.youtube.com/watch?v=2aXqx79RUX4",
 "https://www.youtube.com/watch?v=wv3eBkIyGEs",
-"https://www.youtube.com/watch?v=uLiscpH1cNc"
+"https://www.youtube.com/watch?v=yCNIZkvUE7E",
+"https://www.youtube.com/watch?v=9cXOnIwsDcI",
+"https://www.youtube.com/watch?v=CvuQOn_pMgU"
 ];
 
 module.exports.run = async (bot, message, args) => {

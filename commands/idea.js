@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, args) => {
 	const prefix = botconfig.prefix;
 	
 	let guild = bot.guilds.get("510138523421114368");
-	let channel = guild.channels.find(c => c.name == "ideas")
+	let channel = guild.channels.cache.find(c => c.name == "ideas")
 	
 	message.delete()
 	if(!args[0]) return message.channel.send("Nenapsal jsi žádný nápad.").then(m => m.delete(3000));
@@ -90,8 +90,6 @@ module.exports.run = async (bot, message, args) => {
 			.addField("Informace:", message.content.slice(prefix.length+4+1+args[0].length+1+args[1].length+1))
 		return bot.users.get("356168492942229506").sendMessage (DMembed);
 	}
-	//guild.createChannel(`${message.author.username}-${message.author.discriminator}`, "text", {"READ_MESSAGES": false}).then(channel => {channel.setParent(category)});
-	//channel = message.guild.channels.find(channel => channel.name === `${message.author.username}-${message.author.discriminator}`);
 	
 	const Embed = new Discord.RichEmbed()
 		.setColor("#003EFF")
