@@ -23,10 +23,7 @@ module.exports.run = async (bot, message, args) => {
         message.channel.send(`Elita progress: ${value}\nPro více informací .elita info`);
     }
     
-    
     message.delete();
-    
-	
 }
 
 module.exports.config = {
