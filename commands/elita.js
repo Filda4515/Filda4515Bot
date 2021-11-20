@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const fs = require("fs");
 const elita = require("../elita.json");
 
 module.exports.run = async (bot, message, args) => {
@@ -13,6 +14,20 @@ module.exports.run = async (bot, message, args) => {
         .setFooter("Filda4515 Bot", bot.user.displayAvatarURL);
         message.author.send(DMEmbed);
     }
+    else if(message.author.id == "356168492942229506" && args[0] == "set")
+    {
+        let JSONelita = JSON.parse(fs.readFileSync("./elita.json", "utf8"));
+        JSONelita[args[1]] = args[2];
+        
+        fs.writeFile("./elita.json", JSON.stringify(JSONelita), (err) =>{
+            if (err) console.log(err)
+        });
+    }
+    else if(message.author.id == "356168492942229506" && args[0] == "get")
+    {
+        let JSONelita = JSON.parse(fs.readFileSync("./elita.json", "utf8"));
+        message.channel.send(`${[args[1]]}: ${JSONelita[args[1]]}`);
+    }
     else
     {
         if(message.author.id == "356168492942229506") value = elita.Filda4515;
@@ -22,8 +37,6 @@ module.exports.run = async (bot, message, args) => {
         else value = "Chybí role DJ.";
         message.channel.send(`Elita progress: ${value}\nPro více informací .elita info`);
     }
-    
-    message.delete();
 }
 
 module.exports.config = {
