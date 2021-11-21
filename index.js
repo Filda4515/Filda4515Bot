@@ -9,6 +9,15 @@ bot.on("ready", async () => {
 })
 
 const fs = require("fs");
+
+fs.open("./elita.json", "r", (err) =>{
+    if (err) {
+        fs.writeFileSync("./elita.json", '{}', (err) =>{
+            if (err) console.log(err);
+        });
+    };
+});
+
 bot.commands = new Discord.Collection();
 bot.aliases = new Discord.Collection();
 
