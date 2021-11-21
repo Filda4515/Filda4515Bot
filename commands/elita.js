@@ -4,7 +4,10 @@ const elita = require("../elita.json");
 
 module.exports.run = async (bot, message, args) => {
     
-    if(args[0] == "info") {
+    let JSONelita = JSON.parse(fs.readFileSync("./elita.json", "utf8"));
+    
+    if(args[0] == "info")
+    {
         let DMEmbed = new Discord.RichEmbed()
         .setColor("#FFAE00")
         .setAuthor("Filda4515 Bot - Elita info", message.guild.iconURL)
@@ -16,16 +19,35 @@ module.exports.run = async (bot, message, args) => {
     }
     else if(message.author.id == "356168492942229506" && args[0] == "set")
     {
-        let JSONelita = JSON.parse(fs.readFileSync("./elita.json", "utf8"));
         JSONelita[args[1]] = args[2];
         
         fs.writeFile("./elita.json", JSON.stringify(JSONelita), (err) =>{
             if (err) console.log(err)
         });
+        message.channel.send(`${[args[1]]}: ${JSONelita[args[1]]}`);
     }
     else if(message.author.id == "356168492942229506" && args[0] == "get")
     {
-        let JSONelita = JSON.parse(fs.readFileSync("./elita.json", "utf8"));
+        if(!args[1])
+        {
+            var string = "";
+            for (var key in JSONelita){
+                string += `${key} - ${JSONelita[key]}, `;
+            }
+            message.channel.send(string.slice(0, -2));
+        }
+        else
+        {
+            message.channel.send(`${[args[1]]}: ${JSONelita[args[1]]}`); 
+        }
+    }
+    else if(message.author.id == "356168492942229506" && args[0] == "remove")
+    {
+        delete JSONelita[args[1]];
+        
+        fs.writeFile("./elita.json", JSON.stringify(JSONelita), (err) =>{
+            if (err) console.log(err)
+        });
         message.channel.send(`${[args[1]]}: ${JSONelita[args[1]]}`);
     }
     else
