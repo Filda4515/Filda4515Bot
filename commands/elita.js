@@ -52,11 +52,12 @@ module.exports.run = async (bot, message, args) => {
     }
     else
     {
-        if(message.author.id == "356168492942229506") value = elita.Filda4515;
-        else if(message.author.id == "262178276452204545") value = elita.Hspsr;
-        else if(message.author.id == "271572340066877440") value = elita.Raqtty;
-        else if(message.author.id == "362605241377488905") value = elita.Tuty;
-        else value = "Chybí role DJ.";
+        if(JSONelita[message.author.username]){
+            value = JSONelita[message.author.username];
+        }
+        else{
+            value = "Chybí role DJ.";
+        }
         message.channel.send(`Elita progress: ${value}\nPro více informací .elita info`);
     }
 }
