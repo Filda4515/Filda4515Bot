@@ -8,18 +8,18 @@ module.exports.run = async (bot, message, args) => {
 	
 	message.delete()
 	if(!args[0]) {
-		let Embed = new Discord.RichEmbed()
+		let Embed = new Discord.MessageEmbed()
 		.setAuthor("EMOTY", message.guild.iconURL)
 		.setColor("#003EFF")
 		.setDescription(`${message.author.username} zkontroluj svoje dms!`)
-		message.channel.send(Embed).then(m => m.delete(10000));
+		message.channel.send({ embeds: [Embed] }).then(m => m.delete(10000));
 		
 		var emotes = (await fs.promises.readdir("./images/gif")).map(f => f.split(".")[0]).toString().replace(/,/g, "\n");
 		if(emotes.length <= 0) {
 			return console.log("Couldn't find any gif files");
 		}
 		
-		let DMEmbed = new Discord.RichEmbed()
+		let DMEmbed = new Discord.MessageEmbed()
 		.setColor("#003EFF")
 		.setAuthor("Filda4515 Bot EMOTY", message.guild.iconURL)
 		.setThumbnail(bot.user.displayAvatarURL)
@@ -27,12 +27,12 @@ module.exports.run = async (bot, message, args) => {
 		.setDescription(`Tohle jsou dostupné animované emoty\nAnimované emoty zobrazíš přes příkaz ${prefix}e <emote>`)	
 		.addField("Animované emoty:", `**${emotes}**`)
 		.setFooter("Filda4515 Bot", bot.user.displayAvatarURL)
-		 return message.author.send(DMEmbed);
+		 return message.author.send({ embeds: [DMEmbed] });
 	}
 	let emote = args[0];
 	let path = `./images/gif/${emote}.gif`
 	if(!fs.existsSync(path)) return message.channel.send("Neplatný emote.").then(m => m.delete(3000));
-	return message.channel.send({files: [path]});
+	return message.channel.send({ files: [path] });
 }
 
 module.exports.config = {

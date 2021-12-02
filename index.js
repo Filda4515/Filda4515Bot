@@ -1,7 +1,8 @@
 const botconfig = require("./botconfig.json");
 const Discord = require("discord.js");
+const intents = new Discord.Intents(32767);
 
-const bot = new Discord.Client({disableEveryone: true});
+const bot = new Discord.Client({ intents });
 
 bot.on("ready", async () => {
 	console.log(`${bot.user.username} is online!`);
@@ -25,7 +26,7 @@ fs.readdir("./commands/", (err, files) => {
 
 	if(err) console.log(err);
 		
-	let jsfile = files.filter(f => f.split(".").pop() === "js");
+	let jsfile = files.filter(f => f.endsWith(".js"));
 	if(jsfile.length <= 0) {
 		return console.log("[LOGS] Couldn't find Commands!");
 	}
@@ -39,7 +40,7 @@ fs.readdir("./commands/", (err, files) => {
 	});
 });
 
-bot.on("message", async message => {
+bot.on("messageCreate", async message => {
 	if(message.author.bot || message.channel.type === "dm") return;
 	
 	let prefix = botconfig.prefix;
@@ -51,5 +52,19 @@ bot.on("message", async message => {
 	let commandfile = bot.commands.get(cmd.slice(prefix.length)) || bot.commands.get(bot.aliases.get(cmd.slice(prefix.length)))
 	if(commandfile) commandfile.run(bot,message,args)
 })
+
+bot.on("voiceStateUpdate", (oldMember, newMember)=> { 
+  let oldVoice = oldMember.voiceChannelID; 
+  let newVoice = newMember.voiceChannelID; 
+  if (oldVoice != newVoice) {
+    if (oldVoice == null) {
+      console.log("User joined!" + oldMember + " " + newMember);
+    } else if (newVoice == null) {
+      console.log("User left!" + oldMember+ " " + newMember);
+    } else {
+      console.log("User switched channels!" + oldMember + " " + newMember);
+    }
+  }
+});
 
 bot.login(process.env.secrettoken);
