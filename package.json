@@ -13,6 +13,9 @@
     "quick.db": "^7.0.0-b22",
     "ytdl-core": "^1.0.3"
   },
+  "engines": {
+    "node": "^16.13.0"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
