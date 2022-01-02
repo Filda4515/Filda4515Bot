@@ -9,9 +9,7 @@
     "mongoose": "^6.0.14",
     "node": "^16.13.0",
     "node-opus": "^0.3.3",
-    "opusscript": "0.0.7",
-    "quick.db": "^7.0.0-b22",
-    "ytdl-core": "^1.0.3"
+    "opusscript": "0.0.7"
   },
   "engines": {
     "node": "^16.13.0"
