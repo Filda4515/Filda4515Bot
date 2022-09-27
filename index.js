@@ -1,4 +1,5 @@
 const botconfig = require("./botconfig.json");
+const ENV = require("./ENV.json");
 const Discord = require("discord.js");
 const intents = new Discord.Intents(32767);
 
@@ -73,4 +74,4 @@ bot.on("voiceStateUpdate", async (oldState, newState) => {
     } 
 });
 
-bot.login("NjQ5NjMwMTgyMDQyMzcwMDY5.XelT8g.CBEJNRw3cjl5p_4CUYKyDwHNHbo");
+bot.login(ENV.token);
