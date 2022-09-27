@@ -18,7 +18,7 @@ module.exports.run = async (bot, message, args) => {
 	.setThumbnail(bot.user.displayAvatarURL)
 	.setTimestamp()
 	.setDescription(`Tohle jsou dostupné příkazy\nPrefix příkazů je ${prefix}\n\n**NÁPADY PIŠTE PŘES .IDEA <slohovka>**`)	
-	.addField("Prikazy:", "**elita, elite, Elita, Elite** - Procentuální progress pro zisk Elita roli\n**e** - Animované emoty\n**gachi, Gachi, gachiBASS** - Náhodný gachiBASS\n**cad** - Co si Filda4515 Bot myslí o Cadu\n**sračka, sracka** - Prostě sračka :)")
+	.addField("Prikazy:", "**e** - Animované emoty\n**gachi, Gachi, gachiBASS** - Náhodný gachiBASS\n**cad** - Co si Filda4515 Bot myslí o Cadu\n**sračka, sracka** - Prostě sračka :)")
 	.setFooter("Filda4515 Bot", bot.user.displayAvatarURL)
 	message.author.send({ embeds: [DMEmbed] });
 }
