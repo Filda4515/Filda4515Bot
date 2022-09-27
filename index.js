@@ -73,4 +73,4 @@ bot.on("voiceStateUpdate", async (oldState, newState) => {
     } 
 });
 
-bot.login(process.env.secrettoken);
+bot.login("NjQ5NjMwMTgyMDQyMzcwMDY5.XelT8g.CBEJNRw3cjl5p_4CUYKyDwHNHbo");
