@@ -17,13 +17,12 @@ module.exports.run = async (bot, message, args) => {
 	.setAuthor({ name: "Filda4515 Bot - help command", iconURL: message.guild.iconURL()})
 	.setThumbnail(bot.user.displayAvatarURL)
 	.setTimestamp()
-	.setDescription(`Tohle jsou dostupné příkazy\nPrefix příkazů je ${prefix}\n\n**NÁPADY PIŠTE PŘES .IDEA <slohovka>**`)	
+	.setDescription(`Tohle jsou dostupné příkazy\nPrefix příkazů je ${prefix}\n\n**NÁPADY PIŠTE PŘES .IDEA <slohovka>**\n\n**__PŘÍKAZY__**`)	
 	.addFields(
-		{ name: "Prikazy", value: "\u200B", inline: true },
-		{ name: "e", value: "- Animované emoty:", inline: true },
-		{ name: "gachi, Gachi, gachiBASS", value: "- Náhodný gachiBASS", inline: true },
-		{ name: "cad", value: "- Co si Filda4515 Bot myslí o Cadu", inline: true },
-		{ name: "sračka, sracka", value: "- Prostě sračka :)", inline: true },
+		{ name: "e", value: "- Animované emoty:"},
+		{ name: "gachi, Gachi, gachiBASS", value: "- Náhodný gachiBASS"},
+		{ name: "cad", value: "- Co si Filda4515 Bot myslí o Cadu"},
+		{ name: "sračka, sracka", value: "- Prostě sračka :)"},
 	)
 	.setFooter({ text: "Filda4515 Bot", iconURL: bot.user.displayAvatarURL() })
 	message.author.send({ embeds: [DMEmbed] });

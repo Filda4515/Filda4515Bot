@@ -12,7 +12,9 @@ module.exports.run = async (bot, message, args) => {
 		.setAuthor({ name: "EMOTY", iconURL: message.guild.iconURL() })
 		.setColor("#003EFF")
 		.setDescription(`${message.author.username} zkontroluj svoje dms!`)
-		message.channel.send({ embeds: [Embed] }).then(m => m.delete(10000));
+		message.channel.send({ embeds: [Embed] }).then(m => {
+			setTimeout(() => m.delete(), 3000)
+		});
 		
 		var emotes = (await fs.promises.readdir("./images/gif")).map(f => f.split(".")[0]).toString().replace(/,/g, "\n");
 		if(emotes.length <= 0) {
