@@ -7,19 +7,25 @@ module.exports.run = async (bot, message, args) => {
 	
 	message.delete()
 	let Embed = new Discord.MessageEmbed()
-	.setAuthor("Prikaz Help", message.guild.iconURL)
+	.setAuthor({ name: "Prikaz Help", iconURL: message.guild.iconURL() })
 	.setColor("#003EFF")
 	.setDescription(`${message.author.username} zkontroluj svoje dms!`)
 	message.channel.send({ embeds: [Embed] }).then(m => m.delete(10000));
 
 	let DMEmbed = new Discord.MessageEmbed()
 	.setColor("#003EFF")
-	.setAuthor("Filda4515 Bot - help command", message.guild.iconURL)
+	.setAuthor({ name: "Filda4515 Bot - help command", iconURL: message.guild.iconURL()})
 	.setThumbnail(bot.user.displayAvatarURL)
 	.setTimestamp()
 	.setDescription(`Tohle jsou dostupné příkazy\nPrefix příkazů je ${prefix}\n\n**NÁPADY PIŠTE PŘES .IDEA <slohovka>**`)	
-	.addField("Prikazy:", "**e** - Animované emoty\n**gachi, Gachi, gachiBASS** - Náhodný gachiBASS\n**cad** - Co si Filda4515 Bot myslí o Cadu\n**sračka, sracka** - Prostě sračka :)")
-	.setFooter("Filda4515 Bot", bot.user.displayAvatarURL)
+	.addFields(
+		{ name: "Prikazy", value: "\u200B", inline: true },
+		{ name: "e", value: "- Animované emoty:", inline: true },
+		{ name: "gachi, Gachi, gachiBASS", value: "- Náhodný gachiBASS", inline: true },
+		{ name: "cad", value: "- Co si Filda4515 Bot myslí o Cadu", inline: true },
+		{ name: "sračka, sracka", value: "- Prostě sračka :)", inline: true },
+	)
+	.setFooter({ text: "Filda4515 Bot", iconURL: bot.user.displayAvatarURL() })
 	message.author.send({ embeds: [DMEmbed] });
 }
 

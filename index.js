@@ -20,7 +20,6 @@ bot.commands = new Discord.Collection();
 bot.aliases = new Discord.Collection();
 
 const fs = require("fs");
-
 fs.readdir("./commands/", (err, files) => {
 
 	if(err) console.log(err);
@@ -39,6 +38,16 @@ fs.readdir("./commands/", (err, files) => {
 	};
 });
 
+const mongoose = require("mongoose");
+mongoose.connect(ENV.MONGODB_URI, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true
+}).then(()=>{
+	console.log("Connected to the database!")
+}).catch((err)=>{
+	console.log(err)
+})
+
 bot.on("messageCreate", async message => {
 	if(message.author.bot || message.channel.type === "dm") return;
 	
@@ -51,6 +60,94 @@ bot.on("messageCreate", async message => {
 	let commandfile = bot.commands.get(cmd.slice(prefix.length)) || bot.commands.get(bot.aliases.get(cmd.slice(prefix.length)))
 	if(commandfile) commandfile.run(bot,message,args)
 });
+
+const Guild = require("./schemas/Guild.js");
+const User = require("./schemas/User.js");
+bot.on("messageCreate", async message => {
+	if(message.author.bot || message.channel.type === "dm") return;
+	
+	const g_data = await Guild.findOne({ _id: message.guild.id });
+	
+	if(!g_data ) return;
+	
+	if(message.channel.id != g_data.Channel) return;
+	
+	if(message.author.id == g_data.LastUser)
+	{
+		message.reply("Stejný uživatel nemůže napsat dvě čísla po sobě.\nZačínáme znovu od 1.");
+		g_data.Current = 0;
+		g_data.LastUser = "";
+		g_data.save();
+		User.findOne({
+			_id: message.author.id,
+			Guild: message.guild.id
+		}, async(err, data) => {
+			if(err) throw err;
+			if(data) {
+				data.Counts--;
+			} else {
+				data = new User({
+					_id: message.author.id,
+					Guild: message.guild.id,
+					Counts: -1
+				})
+			}
+			data.save();
+		});
+		return;
+	}
+	
+	const number = parseInt(message.content);
+	console.log(number);
+	if(number == g_data .Current + 1)
+	{
+		User.findOne({
+			_id: message.author.id,
+			Guild: message.guild.id
+		}, async(err, data) => {
+			if(err) throw err;
+			if(data) {
+				data.Counts++;
+			} else {
+				data = new User({
+					_id: message.author.id,
+					Guild: message.guild.id,
+					Counts: 1
+				})
+			}
+			data.save();
+		});
+		g_data.Current = number;
+		g_data.LastUser = message.author.id;
+		g_data.Highest = Math.max(g_data.Highest, number);
+		g_data.save();
+		message.react('✅');
+	}
+	else if(!isNaN(number))
+	{
+		message.reply("Špatné číslo.\nZačínáme znovu od 1.");
+		g_data.Current = 0;
+		g_data.LastUser = "";
+		g_data.save();
+		User.findOne({
+			_id: message.author.id,
+			Guild: message.guild.id
+		}, async(err, data) => {
+			if(err) throw err;
+			if(data) {
+				data.Counts--;
+			} else {
+				data = new User({
+					_id: message.author.id,
+					Guild: message.guild.id,
+					Counts: -1
+				})
+			}
+			data.save();
+		});
+		return;
+	}
+})
 
 bot.on("voiceStateUpdate", async (oldState, newState) => {
     let oldVoiceId = oldState.channelId;
