@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args) => {
 	message.delete()
 	if(!args[0]) {
 		let Embed = new Discord.MessageEmbed()
-		.setAuthor("EMOTY", message.guild.iconURL)
+		.setAuthor({ name: "EMOTY", iconURL: message.guild.iconURL() })
 		.setColor("#003EFF")
 		.setDescription(`${message.author.username} zkontroluj svoje dms!`)
 		message.channel.send({ embeds: [Embed] }).then(m => m.delete(10000));
@@ -21,12 +21,12 @@ module.exports.run = async (bot, message, args) => {
 		
 		let DMEmbed = new Discord.MessageEmbed()
 		.setColor("#003EFF")
-		.setAuthor("Filda4515 Bot EMOTY", message.guild.iconURL)
+		.setAuthor({ name: "Filda4515 Bot EMOTY", iconURL: message.guild.iconURL() })
 		.setThumbnail(bot.user.displayAvatarURL)
 		.setTimestamp()
 		.setDescription(`Tohle jsou dostupné animované emoty\nAnimované emoty zobrazíš přes příkaz ${prefix}e <emote>`)	
-		.addField("Animované emoty:", `**${emotes}**`)
-		.setFooter("Filda4515 Bot", bot.user.displayAvatarURL)
+		.addFields({ name: "Animované emoty:", value: `**${emotes}**` })
+		.setFooter({ text: "Filda4515 Bot", iconURL: bot.user.displayAvatarURL() })
 		 return message.author.send({ embeds: [DMEmbed] });
 	}
 	let emote = args[0];
