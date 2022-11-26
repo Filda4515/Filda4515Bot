@@ -9,14 +9,14 @@ module.exports.run = async (bot, message, args) => {
 		if(!channel) return message.reply("Napiš counting channel.");
 		
 		Guild.findOne({
-			_id: message.guild.id
+			id: message.guild.id
 		}, async(err, data) => {
 			if(err) throw err;
 			if(data) {
 				data.Channel = channel.id
 			} else {
 				data = new Guild({
-					_id: message.guild.id,
+					id: message.guild.id,
 					Current: 0,
                     Channel: channel.id,
 					Highest: 0
@@ -36,16 +36,15 @@ module.exports.run = async (bot, message, args) => {
 			let i = 1;
 			const array = sort.slice(0,5).map((v) => `**#${i++}** <@${v.id}>, **${v.Counts}**`).join("\n");
 			
-			const g_data = await Guild.findOne({ _id: message.guild.id });
+			const g_data = await Guild.findOne({ id: message.guild.id });
 			
 			let Embed = new Discord.MessageEmbed()
 			.setColor("#003EFF")
 			.setTitle(`Leaderbord na \`${message.guild.name}\`\nNejvyšší dosažené číslo na serveru: ${g_data.Highest}\n`)
 			.setDescription(array)
 			message.channel.send({ embeds: [Embed] });
-			return;
 		})
-		return message.channel.send("Leaderboard:");
+		return;
 	}
 	
 	return message.channel.send(".help counting for subcommands");

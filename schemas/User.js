@@ -1,12 +1,9 @@
 const mongoose = require("mongoose");
 
 const userschema = mongoose.Schema({
-    _id: {
-        type: String,
-        required: true
-    },
+	id: String,
 	Guild: String,
-    Counts: Number
+	Counts: Number
 })
 
 module.exports = mongoose.model("user", userschema)

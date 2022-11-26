@@ -66,7 +66,7 @@ const User = require("./schemas/User.js");
 bot.on("messageCreate", async message => {
 	if(message.author.bot || message.channel.type === "dm") return;
 	
-	const g_data = await Guild.findOne({ _id: message.guild.id });
+	const g_data = await Guild.findOne({ id: message.guild.id });
 	
 	if(!g_data ) return;
 	
@@ -82,7 +82,7 @@ bot.on("messageCreate", async message => {
 		g_data.LastUser = "";
 		g_data.save();
 		User.findOne({
-			_id: message.author.id,
+			id: message.author.id,
 			Guild: message.guild.id
 		}, async(err, data) => {
 			if(err) throw err;
@@ -90,7 +90,7 @@ bot.on("messageCreate", async message => {
 				data.Counts--;
 			} else {
 				data = new User({
-					_id: message.author.id,
+					id: message.author.id,
 					Guild: message.guild.id,
 					Counts: -1
 				})
@@ -102,7 +102,7 @@ bot.on("messageCreate", async message => {
 	
 	if(number == g_data.Current + 1) {
 		User.findOne({
-			_id: message.author.id,
+			id: message.author.id,
 			Guild: message.guild.id
 		}, async(err, data) => {
 			if(err) throw err;
@@ -110,7 +110,7 @@ bot.on("messageCreate", async message => {
 				data.Counts++;
 			} else {
 				data = new User({
-					_id: message.author.id,
+					id: message.author.id,
 					Guild: message.guild.id,
 					Counts: 1
 				})
@@ -128,7 +128,7 @@ bot.on("messageCreate", async message => {
 		g_data.LastUser = "";
 		g_data.save();
 		User.findOne({
-			_id: message.author.id,
+			id: message.author.id,
 			Guild: message.guild.id
 		}, async(err, data) => {
 			if(err) throw err;
@@ -136,7 +136,7 @@ bot.on("messageCreate", async message => {
 				data.Counts--;
 			} else {
 				data = new User({
-					_id: message.author.id,
+					id: message.author.id,
 					Guild: message.guild.id,
 					Counts: -1
 				})
