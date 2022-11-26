@@ -73,7 +73,6 @@ bot.on("messageCreate", async message => {
 	if(message.channel.id != g_data.Channel) return;
 	
 	const number = parseInt(message.content);
-	console.log(number);
 	
 	if(isNaN(number)) return;
 	

@@ -19,7 +19,7 @@ module.exports.run = async (bot, message, args) => {
 		.setThumbnail(bot.user.displayAvatarURL)
 		.setTimestamp()
 		.setTitle("Counting")
-		.setDescription(".counting <subcommand>")	
+		.setDescription(".counting <subcommand>\n\n**__SUBPŘÍKAZY__**")	
 		.addFields(
 			{ name: "channel <#channel>", value: "- set counting channel (**ADMINISTRATOR ONLY**)"},
 			{ name: "leaderboard, lb", value: "- Counting leaderboard"},
