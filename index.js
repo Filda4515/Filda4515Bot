@@ -75,10 +75,9 @@ bot.on("messageCreate", async message => {
 	const number = parseInt(message.content);
 	console.log(number);
 	
-	if (isNaN(number)) return;
+	if(isNaN(number)) return;
 	
-	if(message.author.id == g_data.LastUser)
-	{
+	if(message.author.id == g_data.LastUser) {
 		message.reply("Stejný uživatel nemůže napsat dvě čísla po sobě.\nZačínáme znovu od 1.");
 		g_data.Current = 0;
 		g_data.LastUser = "";
@@ -102,8 +101,7 @@ bot.on("messageCreate", async message => {
 		return;
 	}
 	
-	if(number == g_data.Current + 1)
-	{
+	if(number == g_data.Current + 1) {
 		User.findOne({
 			_id: message.author.id,
 			Guild: message.guild.id
@@ -125,9 +123,7 @@ bot.on("messageCreate", async message => {
 		g_data.Highest = Math.max(g_data.Highest, number);
 		g_data.save();
 		message.react('✅');
-	}
-	else if(g_data.Current != 0)
-	{
+	} else if(g_data.Current != 0) {
 		message.reply("Špatné číslo.\nZačínáme znovu od 1.");
 		g_data.Current = 0;
 		g_data.LastUser = "";
