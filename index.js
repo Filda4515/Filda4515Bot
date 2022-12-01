@@ -80,6 +80,7 @@ bot.on("messageCreate", async message => {
 		message.reply("Stejný uživatel nemůže napsat dvě čísla po sobě.\nZačínáme znovu od 1.");
 		g_data.Current = 0;
 		g_data.LastUser = "";
+		g_data.LastMessage = message.id;
 		g_data.save();
 		User.findOne({
 			id: message.author.id,
@@ -119,6 +120,7 @@ bot.on("messageCreate", async message => {
 		});
 		g_data.Current = number;
 		g_data.LastUser = message.author.id;
+		g_data.LastMessage = message.id;
 		g_data.Highest = Math.max(g_data.Highest, number);
 		g_data.save();
 		message.react('✅');
@@ -126,6 +128,7 @@ bot.on("messageCreate", async message => {
 		message.reply("Špatné číslo.\nZačínáme znovu od 1.");
 		g_data.Current = 0;
 		g_data.LastUser = "";
+		g_data.LastMessage = message.id;
 		g_data.save();
 		User.findOne({
 			id: message.author.id,
@@ -145,6 +148,12 @@ bot.on("messageCreate", async message => {
 		});
 		return;
 	}
+})
+
+bot.on("messageDelete", async message => {
+	const g_data = await Guild.findOne({ id: message.guild.id });
+	if(message.id != g_data.LastMessage) return;
+	message.channel.send("Poslední číslo bylo smazáno. Následující číslo: " + (g_data.Current + 1));
 })
 
 bot.on("voiceStateUpdate", async (oldState, newState) => {
