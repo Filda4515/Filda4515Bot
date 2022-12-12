@@ -153,7 +153,7 @@ bot.on("messageCreate", async message => {
 bot.on("messageDelete", async message => {
 	const g_data = await Guild.findOne({ id: message.guild.id });
 	if(message.id != g_data.LastMessage) return;
-	message.channel.send("Poslední číslo bylo smazáno. Následující číslo: " + (g_data.Current + 1));
+	message.channel.send(`Číslo ${g_data.Current} bylo smazáno. Následuje číslo: ${g_data.Current + 1}`);
 })
 
 bot.on("voiceStateUpdate", async (oldState, newState) => {
