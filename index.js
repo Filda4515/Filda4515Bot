@@ -124,6 +124,10 @@ bot.on("messageCreate", async message => {
 		g_data.Highest = Math.max(g_data.Highest, number);
 		g_data.save();
 		message.react('✅');
+		if(!message.member.roles.cache.some(role => role.id === '1056194781241421885')) {
+			message.member.roles.add('1056194781241421885');
+		}
+		return;
 	} else if(g_data.Current != 0) {
 		message.reply("Špatné číslo.\nZačínáme znovu od 1.");
 		g_data.Current = 0;
