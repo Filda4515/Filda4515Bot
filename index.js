@@ -1,9 +1,16 @@
 const botconfig = require("./botconfig.json");
 const ENV = require("./ENV.json");
 const Discord = require("discord.js");
-const intents = new Discord.Intents(32767);
+const { Client, GatewayIntentBits } = require('discord.js');
 
-const bot = new Discord.Client({ intents });
+const bot = new Client({
+	intents: [
+		GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildVoiceStates,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.MessageContent
+	]
+});
 
 bot.on("ready", async () => {
 	console.log(`${bot.user.username} is online!`);
@@ -39,6 +46,7 @@ fs.readdir("./commands/", (err, files) => {
 });
 
 const mongoose = require("mongoose");
+mongoose.set('strictQuery', true);
 mongoose.connect(ENV.MONGODB_URI, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true

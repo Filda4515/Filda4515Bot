@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const Guild = require("../schemas/Guild.js");
 const User = require("../schemas/User.js");
 
@@ -38,7 +38,7 @@ module.exports.run = async (bot, message, args) => {
 			
 			const g_data = await Guild.findOne({ id: message.guild.id });
 			
-			let Embed = new Discord.MessageEmbed()
+			let Embed = new EmbedBuilder()
 			.setColor("#003EFF")
 			.setTitle(`Leaderbord na \`${message.guild.name}\`\nNejvyšší dosažené číslo na serveru: ${g_data.Highest}\n`)
 			.setDescription(array)

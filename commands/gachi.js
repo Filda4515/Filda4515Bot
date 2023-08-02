@@ -1,7 +1,5 @@
 const gachibass = [
 "https://www.youtube.com/watch?v=NdqbI0_0GsM",
-"https://www.youtube.com/watch?v=UsGg0wFSkOY",
-"https://www.youtube.com/watch?v=bEG_NkoA848",
 "https://www.youtube.com/watch?v=PRXbT9Q_aMo",
 "https://www.youtube.com/watch?v=gq3JxkARYRk",
 "https://www.youtube.com/watch?v=JPxfAYYo7NA",

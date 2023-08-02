@@ -1,5 +1,5 @@
 const botconfig = require("../botconfig.json");
-const Discord = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const fs = require("fs");
 
 module.exports.run = async (bot, message, args) => {
@@ -8,7 +8,7 @@ module.exports.run = async (bot, message, args) => {
 	
 	message.delete()
 	if(!args[0]) {
-		let Embed = new Discord.MessageEmbed()
+		let Embed = new EmbedBuilder()
 		.setAuthor({ name: "EMOTY", iconURL: message.guild.iconURL() })
 		.setColor("#003EFF")
 		.setDescription(`${message.author.username} zkontroluj svoje dms!`)
@@ -21,10 +21,10 @@ module.exports.run = async (bot, message, args) => {
 			return console.log("Couldn't find any gif files");
 		}
 		
-		let DMEmbed = new Discord.MessageEmbed()
+		let DMEmbed = new EmbedBuilder()
 		.setColor("#003EFF")
 		.setAuthor({ name: "Filda4515 Bot EMOTY", iconURL: message.guild.iconURL() })
-		.setThumbnail(bot.user.displayAvatarURL)
+		.setThumbnail(bot.user.displayAvatarURL())
 		.setTimestamp()
 		.setDescription(`Tohle jsou dostupné animované emoty\nAnimované emoty zobrazíš přes příkaz ${prefix}e <emote>`)	
 		.addFields({ name: "Animované emoty:", value: `**${emotes}**` })

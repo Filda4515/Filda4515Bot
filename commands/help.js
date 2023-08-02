@@ -1,22 +1,22 @@
 const botconfig = require("../botconfig.json");
-const Discord = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
 
 	const prefix = botconfig.prefix;
 	
 	message.delete()
-	let Embed = new Discord.MessageEmbed()
+	let Embed = new EmbedBuilder()
 	.setAuthor({ name: "Prikaz Help", iconURL: message.guild.iconURL() })
 	.setColor("#003EFF")
 	.setDescription(`${message.author.username} zkontroluj svoje dms!`)
 	message.channel.send({ embeds: [Embed] }).then(m => m.delete(10000));
 	
 	if(args[0] == "counting"){
-		let DMEmbed = new Discord.MessageEmbed()
+		let DMEmbed = new EmbedBuilder()
 		.setColor("#003EFF")
 		.setAuthor({ name: "Filda4515 Bot - help command", iconURL: message.guild.iconURL()})
-		.setThumbnail(bot.user.displayAvatarURL)
+		.setThumbnail(bot.user.displayAvatarURL())
 		.setTimestamp()
 		.setTitle("Counting")
 		.setDescription(".counting <subcommand>\n\n**__SUBPŘÍKAZY__**")	
@@ -28,10 +28,10 @@ module.exports.run = async (bot, message, args) => {
 		return message.author.send({ embeds: [DMEmbed] });
 	}
 
-	let DMEmbed = new Discord.MessageEmbed()
+	let DMEmbed = new EmbedBuilder()
 	.setColor("#003EFF")
 	.setAuthor({ name: "Filda4515 Bot - help command", iconURL: message.guild.iconURL()})
-	.setThumbnail(bot.user.displayAvatarURL)
+	.setThumbnail(bot.user.displayAvatarURL())
 	.setTimestamp()
 	.setDescription(`Tohle jsou dostupné příkazy\nPrefix příkazů je ${prefix}\n\n**NÁPADY PIŠTE PŘES .IDEA <slohovka>**\n\n**__PŘÍKAZY__**`)	
 	.addFields(
