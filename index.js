@@ -93,8 +93,7 @@ bot.on("messageCreate", async message => {
 		User.findOne({
 			id: message.author.id,
 			Guild: message.guild.id
-		}, async(err, data) => {
-			if(err) throw err;
+		}).then((data) => {
 			if(data) {
 				data.Counts--;
 			} else {
@@ -105,7 +104,7 @@ bot.on("messageCreate", async message => {
 				})
 			}
 			data.save();
-		});
+		}).catch((err) => console.log(err));
 		return;
 	}
 	
@@ -113,8 +112,7 @@ bot.on("messageCreate", async message => {
 		User.findOne({
 			id: message.author.id,
 			Guild: message.guild.id
-		}, async(err, data) => {
-			if(err) throw err;
+		}).then((data) => {
 			if(data) {
 				data.Counts++;
 			} else {
@@ -125,7 +123,7 @@ bot.on("messageCreate", async message => {
 				})
 			}
 			data.save();
-		});
+		}).catch((err) => console.log(err));
 		g_data.Current = number;
 		g_data.LastUser = message.author.id;
 		g_data.LastMessage = message.id;
@@ -145,7 +143,7 @@ bot.on("messageCreate", async message => {
 		User.findOne({
 			id: message.author.id,
 			Guild: message.guild.id
-		}, async(err, data) => {
+		}).then((data) => {
 			if(err) throw err;
 			if(data) {
 				data.Counts--;
@@ -157,7 +155,7 @@ bot.on("messageCreate", async message => {
 				})
 			}
 			data.save();
-		});
+		}).catch((err) => console.log(err));
 		return;
 	}
 })

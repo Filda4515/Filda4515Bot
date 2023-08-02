@@ -10,8 +10,7 @@ module.exports.run = async (bot, message, args) => {
 		
 		Guild.findOne({
 			id: message.guild.id
-		}, async(err, data) => {
-			if(err) throw err;
+		}).then((data) => {
 			if(data) {
 				data.Channel = channel.id
 			} else {
@@ -24,14 +23,13 @@ module.exports.run = async (bot, message, args) => {
 			}
 			data.save();
 			message.reply("Counting channel byl nastaven na " + channel.toString());
-		});
+		}).catch((err) => console.log(err));
 		return;
 	}
 	if(args[0] ==  "leaderboard" || args[0] ==  "lb") {
-		User.find({
-			Guild: message.guild.id
-		}, async(err, data) => {
-			if(err) throw err;
+		try
+		{
+			const data = await User.find({ Guild: message.guild.id })
 			const sort = data.sort((a, b) => b.Counts - a.Counts);
 			let i = 1;
 			const array = sort.slice(0,5).map((v) => `**#${i++}** <@${v.id}>, **${v.Counts}**`).join("\n");
@@ -43,7 +41,25 @@ module.exports.run = async (bot, message, args) => {
 			.setTitle(`Leaderbord na \`${message.guild.name}\`\nNejvyšší dosažené číslo na serveru: ${g_data.Highest}\n`)
 			.setDescription(array)
 			message.channel.send({ embeds: [Embed] });
-		})
+		}
+		catch(err) {
+			console.log(err);
+		}
+		return;
+	}
+	if(args[0] == "setcurrent") {
+		message.delete()
+		if(!message.member.permissions.has("ADMINISTRATOR")) return message.reply("Musíš být ADMINISTRATOR.");
+		const number = parseInt(args[1])
+		if(isNaN(number)) return;
+		Guild.findOne({
+			id: message.guild.id
+		}).then((data) => {
+			if(data) {
+				data.Current = number
+			} 
+			data.save();
+		}).catch((err) => console.log(err));
 		return;
 	}
 	
