@@ -17,7 +17,7 @@ module.exports.run = async (bot, message, args) => {
 				data = new Guild({
 					id: message.guild.id,
 					Current: 0,
-                    Channel: channel.id,
+					Channel: channel.id,
 					Highest: 0
 				})
 			}

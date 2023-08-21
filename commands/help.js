@@ -5,7 +5,7 @@ module.exports.run = async (bot, message, args) => {
 
 	const prefix = botconfig.prefix;
 	
-	message.delete()
+	message.delete();
 	let Embed = new EmbedBuilder()
 	.setAuthor({ name: "Prikaz Help", iconURL: message.guild.iconURL() })
 	.setColor("#003EFF")
