@@ -12,9 +12,7 @@ module.exports.run = async (bot, message, args) => {
 		.setAuthor({ name: "EMOTY", iconURL: message.guild.iconURL() })
 		.setColor("#003EFF")
 		.setDescription(`${message.author.username} zkontroluj svoje dms!`)
-		message.channel.send({ embeds: [Embed] }).then(m => {
-			setTimeout(() => m.delete(), 3000)
-		});
+		message.channel.send({ embeds: [Embed] }).then(m => setTimeout(() => m.delete(), 3000));
 		
 		var emotes = (await fs.promises.readdir("./images/gif")).map(f => f.split(".")[0]).toString().replace(/,/g, "\n");
 		if(emotes.length <= 0) {
@@ -33,7 +31,7 @@ module.exports.run = async (bot, message, args) => {
 	}
 	let emote = args[0];
 	let path = `./images/gif/${emote}.gif`
-	if(!fs.existsSync(path)) return message.channel.send("Neplatný emote.").then(m => m.delete(3000));
+	if(!fs.existsSync(path)) return message.channel.send("Neplatný emote.").then(m => setTimeout(() => m.delete(), 3000));
 	return message.channel.send({ files: [path] });
 }
 

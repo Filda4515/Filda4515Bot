@@ -66,7 +66,7 @@ bot.on("messageCreate", async message => {
 	
 	if(!message.content.startsWith(prefix)) return;
 	let commandfile = bot.commands.get(cmd.slice(prefix.length)) || bot.commands.get(bot.aliases.get(cmd.slice(prefix.length)))
-	if(commandfile) commandfile.run(bot,message,args)
+	if(commandfile) commandfile.run(bot,message,args);
 });
 
 const Guild = require("./schemas/Guild.js");
@@ -168,7 +168,7 @@ bot.on("messageDelete", async message => {
 
 bot.on("voiceStateUpdate", async (oldState, newState) => {
     let oldVoiceId = oldState.channelId;
-    let oldVoice = oldState.channel;    
+    let oldVoice = oldState.channel;
     let newVoiceId = newState.channelId;
     let newVoice = newState.channel;
     let user = await bot.users.fetch(oldState.id);

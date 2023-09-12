@@ -10,7 +10,7 @@ module.exports.run = async (bot, message, args) => {
 	.setAuthor({ name: "Prikaz Help", iconURL: message.guild.iconURL() })
 	.setColor("#003EFF")
 	.setDescription(`${message.author.username} zkontroluj svoje dms!`)
-	message.channel.send({ embeds: [Embed] }).then(m => m.delete(10000));
+	message.channel.send({ embeds: [Embed] }).then(m => setTimeout(() => m.delete(), 5000));
 	
 	if(args[0] == "counting"){
 		let DMEmbed = new EmbedBuilder()

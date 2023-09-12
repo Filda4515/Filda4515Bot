@@ -8,9 +8,7 @@ module.exports.run = async (bot, message, args) => {
 	let channel = bot.channels.cache.get("651796243181469696");
 	
 	message.delete()
-	if(!args[0]) return message.channel.send("Nenapsal jsi žádný nápad.").then(m => {
-		setTimeout(() => m.delete(), 3000)
-	});
+	if(!args[0]) return message.channel.send("Nenapsal jsi žádný nápad.").then(m => setTimeout(() => m.delete(), 3000));
 	if(message.member.permissions.has('ADMINISTRATOR')) {
 		
 		mention = message.mentions.members.first();
