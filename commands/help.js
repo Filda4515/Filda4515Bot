@@ -42,6 +42,7 @@ module.exports.run = async (bot, message, args) => {
 		{ name: "chungus", value: "- Big Chungus"},
 		{ name: "koncak, končák, Koncak, Končák", value: "- Náhodný Končákův song"},
 		{ name: "sračka, sracka", value: "- Prostě sračka :)"},
+		{ name: "store", value: "- FildaGames personalizovaný store + license keys"}
 	)
 	.setFooter({ text: "Filda4515 Bot", iconURL: bot.user.displayAvatarURL() })
 	return message.author.send({ embeds: [DMEmbed] });

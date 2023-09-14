@@ -1,6 +1,5 @@
 const { EmbedBuilder } = require("discord.js");
 const mongoose = require("mongoose");
-const ENV = require("../ENV.json");
 
 const prices = require("../store.json");
 const LinkedUser = require("../schemas/LinkedUser.js");
