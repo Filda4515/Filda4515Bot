@@ -51,10 +51,16 @@ mongoose.connect(ENV.MONGODB_URI, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true
 }).then(()=>{
-	console.log("Connected to the database!")
+	console.log("Connected to the database!");
 }).catch((err)=>{
-	console.log(err)
-})
+	console.log(err);
+});
+
+const Licences = mongoose.createConnection(ENV.MONGODB_LICENCES_URI, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true
+});
+module.exports.Licences = Licences
 
 bot.on("messageCreate", async message => {
 	if(message.author.bot || message.channel.type === "dm") return;
@@ -174,16 +180,18 @@ bot.on("voiceStateUpdate", async (oldState, newState) => {
     let user = await bot.users.fetch(oldState.id);
 
     if (oldVoiceId != newVoiceId) {
-        if (oldVoiceId == null) {
-          console.log(user.username + " joined to " + newVoice.name);
-          if (newVoice.name == "forever_alone") console.log(user.username + " je v píči :(");
-        } else if (newVoiceId == null) {
-          console.log(user.username + " left from " + oldVoice.name);
-          if (oldVoice.name == "forever_alone") console.log(user.username + " už není v píči :)");
+		if (oldVoiceId == null) {
+			console.log(user.username + " joined to " + newVoice.name);
+			if (newVoice.name == "forever_alone") console.log(user.username + " je v píči :(");
+		} else if (newVoiceId == null) {
+			console.log(user.username + " left from " + oldVoice.name);
+			if (oldVoice.name == "forever_alone") console.log(user.username + " už není v píči :)");
+
         } else {
-          console.log(user.username + " switched channels from " + oldVoice.name + " to " + newVoice.name);
-          if (newVoice.name == "forever_alone") console.log(user.username + " je v píči :(");
-          if (oldVoice.name == "forever_alone") console.log(user.username + " už není v píči :)");
+			console.log(user.username + " switched channels from " + oldVoice.name + " to " + newVoice.name);
+			if (newVoice.name == "forever_alone") console.log(user.username + " je v píči :(");
+			if (oldVoice.name == "forever_alone") console.log(user.username + " už není v píči :)");
+
         }
     } 
 });
