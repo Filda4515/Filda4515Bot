@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args) => {
 
 	message.delete();
 
-	if (args[0] == "link") {
+	if(args[0] == "link") {
 		const key = args[1];
 		if (!key) return message.channel.send("Neplatný link code.");
 		try {
@@ -39,15 +39,27 @@ module.exports.run = async (bot, message, args) => {
 		return;
 	}
 
-	let Embed = new EmbedBuilder()
-	.setAuthor({ name: "FildaGames store", iconURL: message.guild.iconURL() })
-	.setColor("#41ff4b")
-	.setDescription(`${message.author.username} zkontroluj svoje dms!`)
-	message.channel.send({ embeds: [Embed] }).then(m => setTimeout(() => m.delete(), 5000));
-
 	let system_id = null;
-	const data_lu = await LinkedUser.findOne({ id: message.author.id })
-	if(data_lu) system_id = data_lu.system_id;
+	let username = null;
+	if(args[0]) {
+		if(!message.member.permissions.has('ADMINISTRATOR')) return message.channel.send("Musíš být ADMINISTRATOR.").then(m => setTimeout(() => m.delete(), 5000));
+		const data_lu = await LinkedUser.findOne({ id: args[0] })
+		if(!data_lu) return message.channel.send("Uživatel s tímhle ID nemá propojený účet.").then(m => setTimeout(() => m.delete(), 5000));
+		system_id = data_lu.system_id;
+		username = (await bot.users.fetch(args[0])).username;
+		console.log(username);
+	} else {
+		let Embed = new EmbedBuilder()
+		.setAuthor({ name: "FildaGames store", iconURL: message.guild.iconURL() })
+		.setColor("#41ff4b")
+		.setDescription(`${message.author.username} zkontroluj svoje dms!`)
+		message.channel.send({ embeds: [Embed] }).then(m => setTimeout(() => m.delete(), 5000));
+
+		system_id = null;
+		const data_lu = await LinkedUser.findOne({ id: message.author.id })
+		if(data_lu) system_id = data_lu.system_id;
+		username = message.author.username;
+	}
 
 	if (!system_id) {
 		let DMEmbed = new EmbedBuilder()
@@ -81,10 +93,10 @@ module.exports.run = async (bot, message, args) => {
 
 	const string_s1 = store1 ? `- hra zakoupena \n- licenční klíč: ||${store1}||` : `- hra nevlastěna`;
 	const string_s2 = store2 ? `- hra zakoupena \n- licenční klíč: ||${store2}||` : `- hra nevlastěna`;
-	
+
 	let DMEmbed = new EmbedBuilder()
 	.setColor("#41ff4b")
-	.setAuthor({ name: `FildaGames store - ${message.author.username}`, iconURL: message.guild.iconURL()})
+	.setAuthor({ name: `FildaGames store - ${username}`, iconURL: message.guild.iconURL()})
 	.setThumbnail(bot.user.displayAvatarURL())
 	.setTimestamp()
 	.setDescription("Dostupné FGU hry k zakoupení.")
