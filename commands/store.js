@@ -55,25 +55,13 @@ module.exports.run = async (bot, message, args) => {
 		.setDescription(`${message.author.username} zkontroluj svoje dms!`)
 		message.channel.send({ embeds: [Embed] }).then(m => setTimeout(() => m.delete(), 5000));
 
-		system_id = null;
 		const data_lu = await LinkedUser.findOne({ id: message.author.id })
-		if(data_lu) system_id = data_lu.system_id;
-		username = message.author.username;
-	}
-
-	if (!system_id) {
-		let DMEmbed = new EmbedBuilder()
-		.setColor("#41ff4b")
-		.setAuthor({ name: `FildaGames store - not linked`, iconURL: message.guild.iconURL()})
-		.setThumbnail(bot.user.displayAvatarURL())
-		.setTimestamp()
-		.setDescription("Dostupné FGU hry k zakoupení.\n(Pro linknutí použij FildaGames Launcher.)")
-		.addFields(
-			{ name: `Filda4515 Adventure - ${prices["Filda4515 Adventure"]}€`, value: "- hra nevlastněna"},
-			{ name: `Filda4515 Adventure - ${prices["Agent Filda4515"]}€`, value: "- hra nevlastněna"}
-		)
-		.setFooter({ text: "Filda4515 Bot", iconURL: bot.user.displayAvatarURL() })
-		return message.author.send({ embeds: [DMEmbed] });
+		if(data_lu) {
+			system_id = data_lu.system_id;
+			username = message.author.username;
+		} else {
+			username = "not linked"
+		}
 	}
 
 	const storeSchema = new mongoose.Schema({
@@ -81,30 +69,29 @@ module.exports.run = async (bot, message, args) => {
 		system_id: String
 	});
 
-	let store1 = null;
-	const Store1 = Licences.model("Store", storeSchema, "Filda4515Adventure");
-	const data_s1 = await Store1.findOne({ system_id: system_id })
-	if(data_s1) store1 = data_s1.key;
-
-	let store2 = null;
-	const Store2 = Licences.model("Store", storeSchema, "AgentFilda4515");
-	const data_s2 = await Store2.findOne({ system_id: system_id })
-	if(data_s2) store2 = data_s2.key;
-
-	const string_s1 = store1 ? `- hra zakoupena \n- licenční klíč: ||${store1}||` : `- hra nevlastěna`;
-	const string_s2 = store2 ? `- hra zakoupena \n- licenční klíč: ||${store2}||` : `- hra nevlastěna`;
-
 	let DMEmbed = new EmbedBuilder()
 	.setColor("#41ff4b")
 	.setAuthor({ name: `FildaGames store - ${username}`, iconURL: message.guild.iconURL()})
 	.setThumbnail(bot.user.displayAvatarURL())
 	.setTimestamp()
 	.setDescription("Dostupné FGU hry k zakoupení.")
-	.addFields(
-		{ name: `Filda4515 Adventure - ${prices["Filda4515 Adventure"]}€`, value: string_s1},
-		{ name: `Filda4515 Adventure - ${prices["Agent Filda4515"]}€`, value: string_s2}
-	)
 	.setFooter({ text: "Filda4515 Bot", iconURL: bot.user.displayAvatarURL() })
+	for (const game in prices.games) {
+		let shop_string = ""
+		if (!system_id) {
+			shop_string = "- hra nevlastněna"
+		} else {
+			const Store = Licences.model("Store", storeSchema, game);
+			const data_s = await Store.findOne({ system_id: system_id })
+			
+			if(data_s) {
+				shop_string = `- hra zakoupena \n- licenční klíč: ||${data_s.key}||`;
+			} else {
+				shop_string = "- hra nevlastněna"
+			}
+		}
+		DMEmbed.addFields({ name: `${prices.games[game].name} - ${prices.games[game].price}€`, value: shop_string });
+	}
 	return message.author.send({ embeds: [DMEmbed] });
 }
 
