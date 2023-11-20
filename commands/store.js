@@ -17,7 +17,7 @@ module.exports.run = async (bot, message, args) => {
 
 	if(args[0] == "link") {
 		const key = args[1];
-		if (!key) return message.channel.send("Neplatný link code.");
+		if (!key) return message.channel.send("Neplatný link code.").then(m => setTimeout(() => m.delete(), 5000));;
 		try {
 			const shifted = key
 			.split('')
@@ -40,7 +40,7 @@ module.exports.run = async (bot, message, args) => {
 			}).catch((err) => console.log(err));
 		} catch (error) {
 			console.log(error);
-			message.channel.send("Neplatný link code.").then(m => setTimeout(() => m.delete(), 5000));;
+			message.channel.send("Neplatný link code.").then(m => setTimeout(() => m.delete(), 5000));
 		}
 		return;
 	}
@@ -51,7 +51,7 @@ module.exports.run = async (bot, message, args) => {
 			system_id = data_lu.system_id;
 			username = message.author.username;
 		} else {
-			return message.channel.send("Pro nákup je potřeba mít propojený účet (Použij FildaGames Launcher k dispozici v <#1085521471729840138>)");
+			return message.channel.send("Pro nákup je potřeba mít propojený účet (Použij FildaGames Launcher k dispozici v <#1085521471729840138>)").then(m => setTimeout(() => m.delete(), 5000));;
 		}
 
 		const product = args[1];
