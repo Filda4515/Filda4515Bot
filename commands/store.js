@@ -104,12 +104,12 @@ module.exports.run = async (bot, message, args) => {
 			],
 		}).then(channel => channel.send(`<@356168492942229506>\nProduct: ${product}\nBuyer: <@${message.author.id}>\nPrice: ${price}€`))
 		.catch(console.error);
-		return
+		return;
 	}
 
 	if(args[0] == "close") {
 		if(!message.member.permissions.has("ADMINISTRATOR")) return message.channel.send("Musíš být ADMINISTRATOR.").then(m => setTimeout(() => m.delete(), 5000));
-		const name = message.channel.name
+		const name = message.channel.name;
 		const parts = name.split("-");
 		if (parts.length > 1) {
 			const user_id = parts[1];
@@ -147,12 +147,12 @@ module.exports.run = async (bot, message, args) => {
 		.setDescription(`${message.author.username} zkontroluj svoje dms!`)
 		message.channel.send({ embeds: [Embed] }).then(m => setTimeout(() => m.delete(), 5000));
 
-		const data_lu = await LinkedUser.findOne({ id: message.author.id })
+		const data_lu = await LinkedUser.findOne({ id: message.author.id });
 		if(data_lu) {
 			system_id = data_lu.system_id;
 			username = message.author.username;
 		} else {
-			username = "not linked"
+			username = "not linked";
 		}
 	}
 
@@ -209,6 +209,6 @@ module.exports.run = async (bot, message, args) => {
 }
 
 module.exports.config = {
-	name: "store2",
+	name: "store",
 	aliases: []
 }
