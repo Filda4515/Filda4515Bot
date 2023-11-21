@@ -108,7 +108,7 @@ module.exports.run = async (bot, message, args) => {
 	}
 
 	if(args[0] == "close") {
-		if(!message.member.permissions.has("ADMINISTRATOR")) return message.channel.send("Musíš být ADMINISTRATOR.").then(m => setTimeout(() => m.delete(), 5000));
+		if(!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) return message.channel.send("Musíš být ADMINISTRATOR.").then(m => setTimeout(() => m.delete(), 5000));
 		const name = message.channel.name;
 		const parts = name.split("-");
 		if (parts.length > 1) {
@@ -134,7 +134,7 @@ module.exports.run = async (bot, message, args) => {
 	}
 
 	if(args[0]) {
-		if(!message.member.permissions.has("ADMINISTRATOR")) return message.channel.send("Musíš být ADMINISTRATOR.").then(m => setTimeout(() => m.delete(), 5000));
+		if(!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) return message.channel.send("Musíš být ADMINISTRATOR.").then(m => setTimeout(() => m.delete(), 5000));
 		const data_lu = await LinkedUser.findOne({ id: args[0] })
 		if(!data_lu) return message.channel.send("Uživatel s tímhle ID nemá propojený účet.").then(m => setTimeout(() => m.delete(), 5000));
 		system_id = data_lu.system_id;

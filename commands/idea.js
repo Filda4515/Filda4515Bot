@@ -1,5 +1,5 @@
 const botconfig = require("../botconfig.json");
-const { EmbedBuilder } = require("discord.js");
+const { EmbedBuilder, PermissionsBitField  } = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
 	
@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args) => {
 	
 	message.delete()
 	if(!args[0]) return message.channel.send("Nenapsal jsi žádný nápad.").then(m => setTimeout(() => m.delete(), 3000));
-	if(message.member.permissions.has('ADMINISTRATOR')) {
+	if(message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
 		
 		mention = message.mentions.members.first();
 		

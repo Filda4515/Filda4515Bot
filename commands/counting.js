@@ -1,10 +1,10 @@
-const { EmbedBuilder } = require("discord.js");
+const { EmbedBuilder, PermissionsBitField } = require("discord.js");
 const Guild = require("../schemas/Guild.js");
 const User = require("../schemas/User.js");
 
 module.exports.run = async (bot, message, args) => {
 	if(args[0] == "channel") {
-		if(!message.member.permissions.has('ADMINISTRATOR')) return message.reply("Musíš být ADMINISTRATOR.");
+		if(!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) return message.reply("Musíš být ADMINISTRATOR.");
 		const channel = message.mentions.channels.first();
 		if(!channel) return message.reply("Napiš counting channel.");
 		
@@ -49,7 +49,7 @@ module.exports.run = async (bot, message, args) => {
 	}
 	if(args[0] == "setcurrent") {
 		message.delete()
-		if(!message.member.permissions.has("ADMINISTRATOR")) return message.reply("Musíš být ADMINISTRATOR.");
+		if(!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) return message.reply("Musíš být ADMINISTRATOR.");
 		const number = parseInt(args[1])
 		if(isNaN(number)) return;
 		Guild.findOne({
