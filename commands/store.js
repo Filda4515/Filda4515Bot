@@ -71,7 +71,7 @@ module.exports.run = async (bot, message, args) => {
 		let price = 0;
 		for (const game in prices.games) {
 			if (product == game) {
-				price = prices.games[game].price;
+				price = (prices.games[game].price*(1-prices.games[game].discount/100)).toFixed(2)
 				break;
 			}
 		}
@@ -177,7 +177,15 @@ module.exports.run = async (bot, message, args) => {
 				shop_string = "- hra nevlastněna";
 			}
 		}
-		DMEmbed.addFields({ name: `${prices.games[game].name} - ${prices.games[game].price}€`, value: shop_string });
+		let price_string = null
+		if (prices.games[game].discount == 0) {
+			price_string = `${prices.games[game].price}€`
+		} else {
+			const discount_price = (prices.games[game].price*(1-prices.games[game].discount/100)).toFixed(2)
+			price_string = `~~${prices.games[game].price}€~~ **${discount_price}€ (${prices.games[game].discount}% OFF)**`
+		}
+		
+		DMEmbed.addFields({ name: `${prices.games[game].name} - ${price_string}`, value: shop_string });
 	}
 	for (const bundle in prices.bundles) {
 		let bundle_string = `__Hry obsažené v balíčku:__`;
@@ -188,12 +196,12 @@ module.exports.run = async (bot, message, args) => {
 			} else {
 				const Store = Licences.model("Store", storeSchema, game);
 				const data_s = await Store.findOne({ system_id: system_id })
-
+				const discount_price = (prices.games[game].price*(1-prices.games[game].discount/100)).toFixed(2)
 				if(data_s) {
-					bundle_string += `\n- ~~${prices.games[game].name} - ${prices.games[game].price}€~~`;
+					bundle_string += `\n- ~~${prices.games[game].name} - ${discount_price}€~~`;
 				} else {
-					bundle_string += `\n- ${prices.games[game].name} - ${prices.games[game].price}€`;
-					total_price += prices.games[game].price;
+					bundle_string += `\n- ${prices.games[game].name} - ${discount_price}€`;
+					total_price += parseFloat(discount_price);
 				}
 			}
 		}
