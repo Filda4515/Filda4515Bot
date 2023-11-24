@@ -6,15 +6,40 @@ const LinkedUser = require("../schemas/LinkedUser.js");
 const { Licences } = require("../index.js")
 
 module.exports.run = async (bot, message, args) => {
+	if(args[0] == "close") {
+		if(!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) return message.channel.send("Musíš být Administrator.").then(m => setTimeout(() => m.delete(), 5000));
+		const name = message.channel.name;
+		const parts = name.split("-");
+		if (parts.length > 1) {
+			if (parts[0] != "store") return message.channel.send("Neplatný kanál.").then(m => setTimeout(() => m.delete(), 5000));
+			const user_id = parts[1];
+			if (isNaN(user_id)) return message.channel.send("Neplatný kanál.").then(m => setTimeout(() => m.delete(), 5000));
+			try {
+				const user = await bot.users.fetch(user_id);
+				let DMEmbed = new EmbedBuilder()
+				.setColor("#41ff4b")
+				.setAuthor({ name: `FildaGames store - ${user.username}`, iconURL: message.guild.iconURL()})
+				.setThumbnail(bot.user.displayAvatarURL())
+				.setTimestamp()
+				.setDescription("Děkujeme za váš nákup!")
+				.setFooter({ text: "Filda4515 Bot", iconURL: bot.user.displayAvatarURL() })
+				message.channel.delete();
+				return user.send({ embeds: [DMEmbed] });
+			} catch (error) {
+				return message.channel.send("Neplatný kanál.").then(m => setTimeout(() => m.delete(), 5000));
+			}
+		} else {
+			return message.channel.send("Neplatný kanál.").then(m => setTimeout(() => m.delete(), 5000));
+		}
+	}
 
-	message.delete();
 	const storeSchema = new mongoose.Schema({
 		key: String,
 		system_id: String
 	});
 	let system_id = null;
 	let username = null;
-
+	message.delete();
 	if(args[0] == "link") {
 		const key = args[1];
 		if (!key) return message.channel.send("Neplatný link code.").then(m => setTimeout(() => m.delete(), 5000));;
@@ -89,7 +114,7 @@ module.exports.run = async (bot, message, args) => {
 		}
 
 		message.guild.channels.create({
-			name: `${product} - ${message.author.id}`,
+			name: `store - ${message.author.id}`,
 			type: ChannelType.GuildText,
 			parent: "1085521333452017674",
 			permissionOverwrites: [
@@ -105,32 +130,6 @@ module.exports.run = async (bot, message, args) => {
 		}).then(channel => channel.send(`<@356168492942229506>\nProduct: ${product}\nBuyer: <@${message.author.id}>\nPrice: ${price}€`))
 		.catch(console.error);
 		return;
-	}
-
-	if(args[0] == "close") {
-		if(!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) return message.channel.send("Musíš být ADMINISTRATOR.").then(m => setTimeout(() => m.delete(), 5000));
-		const name = message.channel.name;
-		const parts = name.split("-");
-		if (parts.length > 1) {
-			const user_id = parts[1];
-			if (isNaN(user_id)) return message.channel.send("Neplatný kanál.").then(m => setTimeout(() => m.delete(), 5000));
-			try {
-				const user = await bot.users.fetch(user_id);
-				let DMEmbed = new EmbedBuilder()
-				.setColor("#41ff4b")
-				.setAuthor({ name: `FildaGames store - ${user.username}`, iconURL: message.guild.iconURL()})
-				.setThumbnail(bot.user.displayAvatarURL())
-				.setTimestamp()
-				.setDescription("Děkujeme za váš nákup!")
-				.setFooter({ text: "Filda4515 Bot", iconURL: bot.user.displayAvatarURL() })
-				message.channel.delete();
-				return user.send({ embeds: [DMEmbed] });
-			} catch (error) {
-				return message.channel.send("Neplatný kanál.").then(m => setTimeout(() => m.delete(), 5000));
-			}
-		} else {
-			return message.channel.send("Neplatný kanál.").then(m => setTimeout(() => m.delete(), 5000));
-		}
 	}
 
 	if(args[0]) {

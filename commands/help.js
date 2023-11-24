@@ -33,13 +33,14 @@ module.exports.run = async (bot, message, args) => {
 	.setAuthor({ name: "Filda4515 Bot - help command", iconURL: message.guild.iconURL()})
 	.setThumbnail(bot.user.displayAvatarURL())
 	.setTimestamp()
-	.setDescription(`Tohle jsou dostupné příkazy\nPrefix příkazů je ${prefix}\n\n**NÁPADY PIŠTE PŘES .IDEA <slohovka>**\n\n**__PŘÍKAZY__**`)	
+	.setDescription(`Tohle jsou dostupné příkazy\nPrefix příkazů je ${prefix}\n\n**nový příkaz pro nápady: .idea create**\n\n**__PŘÍKAZY__**`)	
 	.addFields(
 		{ name: "cad", value: "- Co si Filda4515 Bot myslí o Cadu"},
 		{ name: "counting", value: "- .help counting for subcommands"},
 		{ name: "e", value: "- Animované emoty:"},
 		{ name: "gachi, Gachi, gachiBASS", value: "- Náhodný gachiBASS"},
 		{ name: "chungus", value: "- Big Chungus"},
+		{ name: "idea create", value: "- create idea ticket"},
 		{ name: "koncak, končák, Koncak, Končák", value: "- Náhodný Končákův song"},
 		{ name: "sračka, sracka", value: "- Prostě sračka :)"},
 		{ name: "store", value: "- FildaGames personalizovaný store + license keys"}
