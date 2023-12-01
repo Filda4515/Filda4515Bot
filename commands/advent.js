@@ -91,6 +91,7 @@ module.exports.run = async (bot, message, args) => {
     .setTimestamp()
     .setFooter({ text: "Filda4515 Bot", iconURL: bot.user.displayAvatarURL() })
     if (args[1]) {
+        console.log(args[1]);
         message.delete();
         remove = true;
         if (!/^(\|\|).*(\|\|)$/.test(args[1])) {
