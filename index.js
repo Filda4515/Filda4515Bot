@@ -71,6 +71,12 @@ bot.on("messageCreate", async message => {
 	let cmd = messageArray[0];
 	let args = messageArray.slice(1);
 	
+	if(message.content.startsWith("???")) {
+		let commandfile = bot.commands.get("???");
+		if(commandfile) commandfile.run(bot,message,args);
+		return;
+	}
+
 	if(!message.content.startsWith(prefix)) return;
 	let commandfile = bot.commands.get(cmd.slice(prefix.length)) || bot.commands.get(bot.aliases.get(cmd.slice(prefix.length)))
 	if(commandfile) commandfile.run(bot,message,args);
@@ -78,6 +84,7 @@ bot.on("messageCreate", async message => {
 
 const Guild = require("./schemas/Guild.js");
 const User = require("./schemas/User.js");
+const Advent = require("./schemas/Advent.js");
 bot.on("messageCreate", async message => {
 	if(message.author.bot || message.channel.type === "dm") return;
 	
@@ -136,7 +143,24 @@ bot.on("messageCreate", async message => {
 		g_data.LastMessage = message.id;
 		g_data.Highest = Math.max(g_data.Highest, number);
 		g_data.save();
-		message.react('✅');
+		message.react("✅");
+		if (number.toString().includes("1")) {
+    		Advent.findOne({ id: message.author.id }).then((data) => {
+				if(data) {
+					if (data._1 != -1) {
+						data._1=-1;
+						data.save();
+						let Embed = new EmbedBuilder()
+						.setColor("#ebb734")
+						.setAuthor({ name: "Adventní kalendář 2023", iconURL: message.guild.iconURL()})
+						.setTimestamp()
+						.setFooter({ text: "Filda4515 Bot", iconURL: bot.user.displayAvatarURL() })
+						.addFields({ name:"Sanctuary Guardian [ 01 ]", value: "Výborně, to se mi líbí."});
+						return message.channel.send({ embeds: [Embed] }).then(m => setTimeout(() => m.delete(), 5000));
+					}
+				}
+			}).catch((err) => console.log(err));
+		}
 		// if(!message.member.roles.cache.some(role => role.id === '1056194781241421885')) {
 			// message.member.roles.add('1056194781241421885');
 		// }
@@ -188,11 +212,15 @@ bot.on("voiceStateUpdate", async (oldState, newState) => {
 			console.log(user.username + " left from " + oldVoice.name);
 			if (oldVoice.name == "forever_alone") console.log(user.username + " už není v píči :)");
 
+			let commandfile = bot.commands.get("???");
+			if(commandfile) commandfile.disconnect(oldVoiceId);
         } else {
 			console.log(user.username + " switched channels from " + oldVoice.name + " to " + newVoice.name);
 			if (newVoice.name == "forever_alone") console.log(user.username + " je v píči :(");
 			if (oldVoice.name == "forever_alone") console.log(user.username + " už není v píči :)");
 
+			let commandfile = bot.commands.get("???");
+			if(commandfile) commandfile.disconnect(oldVoiceId);
         }
     } 
 });
