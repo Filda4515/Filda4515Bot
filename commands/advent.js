@@ -108,7 +108,7 @@ module.exports.run = async (bot, message, args) => {
     } else {
         description = tasks[okynko].desc;
         if (tasks[okynko].answer) {
-            description += "\n\nPro zadání odpovědi použij .advent <číslo okýnka> ||<odpověď>|| (**ODPOVĚĎ MUSÍ BÝT VE SPOILERU**)";
+            description += "\n\nPro zadání odpovědi použij .advent <číslo okýnka> ||\\|\\|<odpověď>\\|\\| ||(**POUZE ODPOVĚĎ MUSÍ BÝT VE SPOILERU, ZBYTEK NE**)";
         }
     }
     Embed.addFields({ name:`Sanctuary Guardian [ ${okynko<10? "0" : ""}${okynko} ]`, value: description});
