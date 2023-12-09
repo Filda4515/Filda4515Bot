@@ -91,12 +91,13 @@ module.exports.run = async (bot, message, args) => {
     .setTimestamp()
     .setFooter({ text: "Filda4515 Bot", iconURL: bot.user.displayAvatarURL() })
     if (args[1]) {
+        let answer = message.content.slice(9+args[0].length);
         message.delete();
         remove = true;
-        if (!/^(\|\|).*(\|\|)$/.test(args[1])) {
+        if (!/^(\|\|).*(\|\|)$/.test(answer)) {
             description = "Musíš použít spoilery!";
         } else {
-            const answer = args[1].replace(/^\|\||\|\|$/g, "");
+            answer = answer.replace(/^\|\||\|\|$/g, "");
             if (tasks[okynko].answer == answer && data[`_${okynko}`] != "-1") {
                 data[`_${okynko}`] = -1;
                 data.save();
