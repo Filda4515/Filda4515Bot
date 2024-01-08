@@ -41,6 +41,7 @@ module.exports.run = async (bot, message, args) => {
 		{ name: "gachi, Gachi, gachiBASS", value: "- Náhodný gachiBASS"},
 		{ name: "chungus", value: "- Big Chungus"},
 		{ name: "idea create", value: "- create idea ticket"},
+		{ name: "isnice <number>", value: "- jak moc je dané číslo nice"},
 		{ name: "koncak, končák, Koncak, Končák", value: "- Náhodný Končákův song"},
 		{ name: "minigame", value: "- Spuštění minihry"},
 		{ name: "sračka, sracka", value: "- Prostě sračka :)"},
