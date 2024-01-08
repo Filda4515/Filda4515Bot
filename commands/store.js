@@ -76,6 +76,7 @@ module.exports.run = async (bot, message, args) => {
 		const data_lu = await LinkedUser.findOne({ id: message.author.id })
 		if(data_lu) {
 			system_id = data_lu.system_id;
+			wallet = data_lu.wallet;
 			username = message.author.username;
 		} else {
 			return message.channel.send("Pro nákup je potřeba mít propojený účet (Použij FildaGames Launcher k dispozici v <#1085521471729840138>)").then(m => setTimeout(() => m.delete(), 5000));;
@@ -131,7 +132,7 @@ module.exports.run = async (bot, message, args) => {
 					allow: [PermissionsBitField.Flags.ViewChannel],
 				},
 			],
-		}).then(channel => channel.send(`<@356168492942229506>\nProduct: ${product}\nBuyer: <@${message.author.id}>\nPrice: ${price}€`))
+		}).then(channel => channel.send(`<@356168492942229506>\nBuyer: <@${message.author.id}>\nFildaGames Wallet: ${wallet}€\n\nProduct: ${product}\nPrice: ${price}€`))
 		.catch(console.error);
 		return;
 	}

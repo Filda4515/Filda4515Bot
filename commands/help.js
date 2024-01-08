@@ -42,6 +42,7 @@ module.exports.run = async (bot, message, args) => {
 		{ name: "chungus", value: "- Big Chungus"},
 		{ name: "idea create", value: "- create idea ticket"},
 		{ name: "koncak, končák, Koncak, Končák", value: "- Náhodný Končákův song"},
+		{ name: "minigame", value: "- Spuštění minihry"},
 		{ name: "sračka, sracka", value: "- Prostě sračka :)"},
 		{ name: "store", value: "- FildaGames personalizovaný store + license keys"}
 	)
