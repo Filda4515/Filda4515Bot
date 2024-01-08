@@ -1,6 +1,3 @@
-const { EmbedBuilder } = require("discord.js");
-const Advent = require("../schemas/Advent.js");
-
 //const groupedNumbers = {};
 function isnice(number){
     const str_number = number.toString();
